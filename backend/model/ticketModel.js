@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
+var model;
 
-const ticketFormat = new mongoose.Schema(
+var ticketFormat = new mongoose.Schema(
   {
     type: String,
 

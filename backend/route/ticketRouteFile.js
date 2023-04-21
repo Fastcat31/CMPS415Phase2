@@ -3,8 +3,6 @@ const { removeTicket, modifyTicket, createNewTicket, getAllTickets, getSingleTic
 
 const routes = express.Router()
 
-
-
 routes.get("/ticket/:id", getSingleTicket) //byid
 routes.get("/list", getAllTickets) //list
 routes.put("/ticket/:id", modifyTicket) //update

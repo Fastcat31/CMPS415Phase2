@@ -1,48 +1,35 @@
 let tickets = require("../model/ticketModel");
-
-
+var logic;
 
 let expressAsyncHandler = require("express-async-handler");
 
- 
-
-   
   
-  const getSingleTicket = expressAsyncHandler(async (req, res) => 
+  
+  var getSingleTicket = expressAsyncHandler(async (req, res) => 
   {
-  
     var { id } = req.params;
-  
-  
+    
     try 
     {
+      var ticket = await tickets.findById(id);
   
-      const ticket = await tickets.findById(id);
+      res.status(200).json(ticket);
   
-
-      res.json(ticket);
-  
-
-
     } catch (error) {
   
-      res.json(error);
+      res.status(500).json(error);
   
     }
   
   });
   
-   
-  
-  
+    
    
   
    const modifyTicket = expressAsyncHandler(async (req, res) => 
   {  
     const { id } = req.params;
   
-  
-
     var {
       type = '',
       subject = '',
@@ -55,9 +42,7 @@ let expressAsyncHandler = require("express-async-handler");
     } = req.body;
     
 
-
-
-    const ticket = await tickets.findByIdAndUpdate(
+    var ticket = await tickets.findByIdAndUpdate(
       id,
       {
       type,
@@ -69,121 +54,78 @@ let expressAsyncHandler = require("express-async-handler");
       submitter,
       assignee_id
     });
+  
+
+   res.status(200).json(ticket);
+
+  }); 
 
 
 
 
-  });
 
 
-
-
-   /* var ticket = await tickets.findByIdAndUpdate(
-  
-      id,
-      {
-  
-         type: req?.body?.type,
-
-  
-        subject: req?.body?.subject,
-
-  
-        description: req?.body?.description,
-  
-
-        priority: req?.body?.priority,
-  
-        status: req?.body?.status,
-  
-        recipient: req?.body?.recipient,
-  
-
-        submitter: req?.body?.submitter,
-  
-        assignee_id: req?.body?.assignee_id,
-
-  
-        follower_ids: req?.body?.follower_ids,
-
-  
-        tags: req?.body?.tags,  
-      },
-  
-      { new: true }
-  
-    );
-  
-    res.json(ticket);
-  
-  });
-  
-*/
-    const createNewTicket = expressAsyncHandler(async (req, res) => {
+    const createNewTicket = (async (req, res) => {
 
     try {
   
-      const ticket = await tickets.create({
+
+      var {
+      type = type,
+      subject = subject,
+      description = description,
+      priority = priority,
+      status = status,
+      recipient = recipient,
+      submitter = submitter,
+      assignee_id = assignee_id
+    } = req.body;
+    
+      var ticket = await tickets.create({
         
         type: req?.body?.type,
-
-
-  
+ 
         subject: req?.body?.subject,
-  
+
         description: req?.body?.description,
-  
         priority: req?.body?.priority,
-  
-        status: req?.body?.status,
-
-
-  
+        status: req?.body?.status, 
         recipient: req?.body?.recipient,
-
-  
         submitter: req?.body?.submitter,
-  
-        assignee_id: req?.body?.assignee_id,
-
-  
-        follower_ids: req?.body?.follower_ids,
-
-  
+        assignee_id: req?.body?.assignee_id, 
+      follower_ids: req?.body?.follower_ids, 
         tags: req?.body?.tags,
   
       });
   
-      res.json(ticket);
+      res.status(200).json(ticket);
   
     } catch (error) {
   
       res.json(error);
   
     }
-  
+    createNewTicket = expressAsyncHandler(createNewTicket);
   });
   
    
+
   //deletes
    const removeTicket = expressAsyncHandler(async (req, res) => {
-    
-  
+     
     const { id } = req.params;
-  
-  
+
     try {
   
       var ticket = await tickets.findByIdAndDelete(id);
   
-      res.json(ticket);
+      res.status(200).json(ticket);
   
     }
      catch (error) 
      {
 
-  
-      res.json(error);
+      res.status(500).json(error);
   
     }
   
@@ -196,16 +138,14 @@ let expressAsyncHandler = require("express-async-handler");
   
       var ticketstofetch = await tickets.find({});
   
-      res.json(ticketstofetch);
+      res.status(200).json(ticketstofetch);
   
     } 
     catch (error)
-     {
-  
-      res.json(error);
+     { 
+      res.status(500).json(error);
   
     }
-  
   });
   
   module.exports = {getAllTickets, getSingleTicket, modifyTicket, removeTicket, createNewTicket}
