@@ -43,42 +43,9 @@ let expressAsyncHandler = require("express-async-handler");
   
   
 
-    var {
-      type = '',
-      subject = '',
-      description = '',
-      priority = '',
-      status = '',
-      recipient = '',
-      submitter = '',
-      assignee_id = ''
-    } = req.body;
-    
 
 
-
-    const ticket = await tickets.findByIdAndUpdate(
-      id,
-      {
-      type,
-      subject,
-      description,
-      priority,
-      status,
-      recipient,
-      submitter,
-      assignee_id
-    });
-
-
-
-
-  });
-
-
-
-
-   /* var ticket = await tickets.findByIdAndUpdate(
+    var ticket = await tickets.findByIdAndUpdate(
   
       id,
       {
@@ -118,7 +85,7 @@ let expressAsyncHandler = require("express-async-handler");
   
   });
   
-*/
+
     const createNewTicket = expressAsyncHandler(async (req, res) => {
 
     try {
