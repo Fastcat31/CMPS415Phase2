@@ -1,4 +1,4 @@
-let tickets = require("../model/ticketModel");
+let tickets = require("../ticketModel");
 
 
 
