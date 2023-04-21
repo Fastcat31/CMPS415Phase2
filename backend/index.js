@@ -1,8 +1,8 @@
 const express = require("express")
 const dotenv = require("dotenv")
 dotenv.config()
-var dataBaseFile = require("./dataBaseFile")
-let routes = require("./ticketRouteFile")
+var dataBaseFile = require("./database/dataBaseFile")
+let routes = require("./route/ticketRouteFile")
 
 dataBaseFile()
 
