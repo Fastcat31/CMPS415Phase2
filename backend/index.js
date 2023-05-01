@@ -14,7 +14,7 @@ expressApp.use("/rest", routes)
 
 expressApp.get("/ticket/:id", (req, res) => {
     const ticketId = req.params.id;
-    // retrieve the ticket
+    // retrieves ticket
     res.send(ticket); 
 });
 
@@ -47,7 +47,14 @@ function modifyTicket(req, res) {
 
 
 
+function removeTicket(req, res)
+ {
+    const id = req.params.id;
+    // use the id to remove the ticket from your data source
+    res.send(`id ${id} has been deleted.`);
+  }
 //expressApp.delete("/ticket/:id", removeTicket) //delete
+
 //expressApp.post("/ticket", createNewTicket) //create
 
 
